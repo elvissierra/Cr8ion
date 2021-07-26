@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Prints
 
-# Register your models here.
+admin.site.register(Prints)
+

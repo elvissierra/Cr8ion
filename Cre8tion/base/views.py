@@ -7,6 +7,7 @@ from django.views.generic.edit import FormView
 from django.views.generic.detail import DetailView
 from django.http import request
 from django.shortcuts import render, redirect
+from .models import Prints
 
 
 class CustomLoginView(LoginView):
