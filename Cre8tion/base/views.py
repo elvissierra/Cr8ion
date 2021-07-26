@@ -1,4 +1,3 @@
-from Cre8tion.base.models import Prints
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -21,7 +20,7 @@ class RegisterPage(FormView):
     redirect_authentication_user = True
     success_url = reverse_lazy ('prints')
 
-    def form_valid(self, form:
+    def form_valid(self, form):
         user = form.save()
         if user != None:
             login(self.request, user)
@@ -37,6 +36,6 @@ class PrintsDetail(LoginRequiredMixin, DetailView):
     context_object_name = 'print'
     template_name = 'base/detail.html'
 
-class PrintsUpload
-
-class PrintsDownload
+#class PrintsUpload
+#
+#class PrintsDownload
