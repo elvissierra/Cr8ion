@@ -8,5 +8,5 @@ class Prints(models.Model):
     cover = models.ImageField(upload_to= 'storage/covers/')
 
     def __str__(self):
-        return self.name
+        return self.title
 
