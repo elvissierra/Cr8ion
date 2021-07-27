@@ -38,5 +38,5 @@ class PrintsDetail(LoginRequiredMixin, DetailView):
     template_name = 'base/detail.html'
 
 #class PrintsUpload
-#
+
 #class PrintsDownload
