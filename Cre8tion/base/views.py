@@ -1,11 +1,12 @@
-from django.views.generic.detail import DetailView
+from django.shortcuts import render
+from django.views.generic.list import ListView
 from .models import Prints
 
 
-class PrintsDetail( DetailView):
+class PrintsList(ListView):
     model = Prints
     context_object_name = 'print'
-    template_name = 'base/detail.html'
+    template_name = 'base/prints_list.html'
     
 #class CustomLoginView(LoginView):
 #    template_name = 'base/login.html'
