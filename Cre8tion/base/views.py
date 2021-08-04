@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from .models import Prints
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'base/index.html')
 def index1(request):
     if request.method=='POST':
         filename= request.POST['filename']
@@ -12,7 +12,7 @@ def index1(request):
         object= Prints.objects.create(title=filename,upload= upload1)
         object.save()
     context= Prints.objects.all()
-    return render(request, 'index1.html', {'context':context})
+    return render(request, 'base/index.html', {'context':context})
 
 
 class PrintsList(ListView):
