@@ -1,4 +1,3 @@
-from os import makedirs
 from django.db import models
 
 
@@ -6,12 +5,12 @@ from django.db import models
 #User, on_delete=models.CASCADE, null=True, blank=True)
 
 class Prints (models.Model):
-
-    filename = models.CharField(max_length=30)
-    creator = models.CharField(max_length=30)
+    filename = models.CharField(max_length=50)
+    creator = models.CharField(max_length=50)
+    created= models.DateTimeField(auto_now_add=True)
     stl = models.FileField(upload_to= 'media/stls')
     cover = models.ImageField(upload_to= 'media/covers/')
-    created= models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
         return self.filename
@@ -21,7 +20,5 @@ class Prints (models.Model):
         self.cover.delete()
         super().delete(*args, **kwargs)
 
-#class upload(models.Model):
-#    title= models.CharField(max_length= 50)
-#    upload= models.FileField(upload_to= "media")
+
 

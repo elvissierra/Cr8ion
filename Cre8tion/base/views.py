@@ -3,6 +3,11 @@ from django.contrib.auth.models import User, auth
 from django.views.generic.list import ListView
 from .models import Prints
 
+class PrintsList(ListView):
+    model = Prints
+    context_object_name = 'print'
+    template_name = 'base/prints_list.html'
+    
 def index(request):
     return render(request, 'base/index.html')
 def index1(request):
@@ -14,12 +19,6 @@ def index1(request):
     context= Prints.objects.all()
     return render(request, 'base/index.html', {'context':context})
 
-
-class PrintsList(ListView):
-    model = Prints
-    context_object_name = 'print'
-    template_name = 'base/prints_list.html'
-    
 #class CustomLoginView(LoginView):
 #    template_name = 'base/login.html'
 #    fields = '__all__'

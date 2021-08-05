@@ -69,8 +69,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'CRE8TION',
-        'USER': 'elvissierra',
-        'PASSWORD': "essn0w*",
+        'USER': 'elvis',
+        'PASSWORD': "essn0w",
         'HOST': 'localhost'
     }
 }
