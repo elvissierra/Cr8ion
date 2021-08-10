@@ -17,7 +17,7 @@ def index1(request):
         object= Prints.objects.create(title=filename,upload= upload1)
         object.save()
     context= Prints.objects.all()
-    return render(request, 'base/index.html', {'context':context})
+    return render(request, 'base/index1.html', {'context':context})
 
 #class CustomLoginView(LoginView):
 #    template_name = 'base/login.html'

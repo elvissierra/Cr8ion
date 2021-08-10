@@ -5,7 +5,7 @@
 <body>
     {% for i in context %}
     <h1>Title:{{i.title}}</h1>
-    <a href="{{ file.url }}" download>Download File.</a>
+    <a href="{{file.url}}" download>Download File.</a>
     <h1>DOWNLOAD THE FILE HERE<a href="{{i.upload.url}}" download>
 {{i.title}}</a></h1>
         {% endfor %}
