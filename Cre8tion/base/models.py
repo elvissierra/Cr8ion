@@ -7,8 +7,8 @@ class Prints (models.Model):
     filename = models.CharField(max_length=50)
     creator = models.CharField(max_length=50)
     created= models.DateField(default= '')
-    stl = models.FileField(upload_to= 'media/stls')
-    cover = models.ImageField(upload_to= 'media/covers')
+    stl = models.FileField(upload_to= 'stls')
+    cover = models.ImageField(upload_to= 'covers')
     
 
     def __str__(self):
