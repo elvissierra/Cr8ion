@@ -5,8 +5,8 @@ from django.db import models
 
 class Prints (models.Model):
     filename = models.CharField(max_length=50)
-    creator = models.CharField(max_length=50)
-    created= models.DateField(default= '')
+    creator = models.CharField(max_length=50, default= '')
+    created= models.DateTimeField(auto_now_add= True)
     stl = models.FileField(upload_to= 'stls')
     cover = models.ImageField(upload_to= 'covers')
     
