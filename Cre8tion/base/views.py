@@ -27,19 +27,3 @@ def index1(request):
 #    redirect_authentication_user = True
 #    success_url = reverse_lazy ('prints')
 
- #   def form_valid(self, form):
- #       user = form.save()
- #       if user != None:
- #           login(self.request, user)
- #       return super(RegisterPage, self).form_valid(form)
-
-#    def get(self, args, kwargs):
-#        if self.request.user.is_authenticated:
-#            return redirect('prints')
-#        return super(RegisterPage, self).get(args, kwargs)
-
-
-
-#class PrintsUpload
-
-#class PrintsDownload
