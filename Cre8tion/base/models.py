@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 class Prints(models.Model):
     filename = models.CharField(max_length=50, default="")
     user = models.CharField(max_length=50, default="")
+    description = models.TextField(max_length=100, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     stl = models.FileField(upload_to="stls")
     cover = models.ImageField(upload_to="covers")
