@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Prints
+from .models import Print
 
-admin.site.register(Prints)
-
+admin.site.register(Print)

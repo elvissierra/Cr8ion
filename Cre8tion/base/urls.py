@@ -1,13 +1,14 @@
 from django.urls import path
 from . import views
-
-# from . views import PrintsList
+from .views import CustomLoginView, RegisterPage
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("index1", views.index1, name="index1")
-    # path('',PrintsList.as_view(), name= 'prints_list'),
-    # path('login/', CustomLoginView.as_view(), name= 'login'),
-    # path('logout/', LogoutView.as_view(next_page= 'login'), name= 'logout'),
-    # path('register/', RegisterPage.as_view(), name= 'register'),
+    path("login/", CustomLoginView.as_view(), name="login"),
+    path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
+    path("register/", RegisterPage.as_view(), name="register"),
+    path("", views.print, name="print"),
+    path("print_list/", views.print_list, name="print_list"),
+    path("print_upload/", views.print_upload, name="print_upload"),
+    # path("print_download/", views.print_download, name="print_download")
 ]
