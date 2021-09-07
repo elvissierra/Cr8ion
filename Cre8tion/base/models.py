@@ -7,7 +7,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 # User, on_delete=models.CASCADE, null=True, blank=True)
 
 
-class Prints(models.Model):
+class Print(models.Model):
     filename = models.CharField(max_length=50, default="")
     user = models.CharField(max_length=50, default="")
     description = models.TextField(max_length=100, null=True, blank=True)
