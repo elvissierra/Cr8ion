@@ -1,4 +1,5 @@
 from django.core.files.storage import FileSystemStorage
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from .forms import PrintForm
 from .models import Print
@@ -61,6 +62,9 @@ class PrintView(ListView):
 # PRINT LIST
 def print_list(request):
     prints = Print.objects.all()
+    paginator = Paginator(prints, 6)
+    page_number = request.GET.get("page")
+    prints = paginator.get_page(page_number)
     return render(request, "main/print_list.html", {"prints": prints})
 
 

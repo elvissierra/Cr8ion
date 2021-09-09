@@ -43,6 +43,23 @@
             {% endfor %}
         </div>
 </body>
-<!-- pagination -->
+
+<div class="pagination">
+    <span class="step-links">
+        {% if prints.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ prints.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ prints.number }} of {{ prints.paginator.num_pages }}.
+        </span>
+
+        {% if prints.has_next %}
+        <a href="?page={{ prints.next_page_number }}">next</a>
+        <a href="?page={{ prints.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 
 </html>
