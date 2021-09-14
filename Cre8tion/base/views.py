@@ -43,6 +43,7 @@ class CustomLoginView(LoginView):
 # HOME PAGE
 class PrintView(ListView):
     model = Print
+    # downloadnum =
     context_object_name = "print"
 
     def get_context_data(self, **kwargs):
@@ -72,9 +73,6 @@ def print_list(request):
 def print(request):
     prints = Print.objects.all()
     return render(request, "main/print.html", {"prints": prints})
-
-
-# for prints order by download.count
 
 
 def print_upload(request):
