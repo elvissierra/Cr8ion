@@ -17,9 +17,7 @@
     </div>
 </div>
 
-
-
-<div class="sidenav">
+<div class="sidenav" id='sidenav'>
     <div class="snheader" id="snheader">
         <h2> This weeks top downloads. </h2>
     </div>
@@ -39,17 +37,36 @@
 
 <div class="card-body" style="padding-left: 20%; padding-right: 10%;padding-top: 5%; font-size: 20px;">
     <pheader><i> Welcome cre8or,</i></pheader>
-    <p><i>here you will find the basics to 3d printing. From the start of the process to the end, you can learn
-            about
-            the materials, equipment, modeling, and of course the final stage- printing. Your imagination is the only
-            limit!
+    <p><i> this is Cre8ion. Here you will find, along with the basics to 3d printing, the ability to download and
+            upload models. As a cre8or we enjoy 3d modeling, and shareing our ideas for others to see and use. When it
+            comes to what you can expect to learn is the start of the process to end of the process, you can learn about
+            the materials, equipment, modeling, and of course the final stage- printing.
         </i></p>
+    <i>
+        <p style="text-align: right;"> Your imagination is the only limit!</p>
+    </i>
+    <t-row style="text-align:center;">
+
+        <button class="btn materials" onclick="popupfunc()">Materials
+            <span class="popuptext" id="popup"> WOAH! </span>
+        </button>
+
+        <button class="btn equipment" onclick="popupfunc0()">Equipment
+            <span class="popuptext" id="popup0"> WOAH </span>
+        </button>
+
+        <button class="btn modeling" onclick="popupfunc1()">Modeling
+            <span class="popuptext" id="popup1"> WOA </span>
+        </button>
+
+        <button class="btn printing" onclick="popupfunc2()">Printing
+            <span class="popuptext" id="popup2"> WO </span>
+        </button>
+
+    </t-row>
 </div>
 
-<t-row style="padding: 20%;">
-    <button class="btn materials">Materials</button>
-    <button class="btn equipment">Equipment</button>
-    <button class="btn modeling">Modeling</button>
-    <button class="btn printing">Printing</button>
-</t-row>
+
+
+
 {% endblock content %}

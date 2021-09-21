@@ -59,7 +59,7 @@
 
         /* Style the "active" element to highlight the current page */
         .topnav a.active {
-            background-color: #2196F3;
+            background-color: #847bcf;
             color: white;
         }
 
@@ -115,7 +115,7 @@
 
         .body {
             background-image: none;
-            background-color: rgb(226, 224, 247);
+            background-color: rgb(142, 139, 184);
             font-family: 'Libre Baskerville', serif;
             padding-top: 50px;
             margin-left: auto;
@@ -193,29 +193,27 @@
             color: rgb(70, 80, 233);
         }
 
-        /* Style the header */
         .snheader {
             padding: 10px 16px;
             background: rgba(70, 81, 233, 0.705);
             color: antiquewhite;
+            position: sticky;
+            top: 0;
         }
 
 
-        /* Page content */
         .content {
             padding: 16px;
         }
 
-        /* The sticky class is added to the header with JS when it reaches its scroll position */
         .sticky {
             position: fixed;
             top: 0;
             width: 100%
         }
 
-        /* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
         .sticky+.content {
-            padding-top: 102px;
+            padding-top: 120px;
         }
 
         .print-wrapper {
@@ -289,11 +287,65 @@
             padding: 14px 28px;
             font-size: 16px;
             cursor: pointer;
-            margin-left: auto;
-            margin-bottom: auto;
-            margin-top: auto;
-            border-radius: 5px;
+            border-radius: 10px;
             overflow-x: auto;
+            display: inline-block;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .btn .popuptext {
+            visibility: hidden;
+            width: auto;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+        }
+
+        .btn .popuptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .btn .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .materials {
