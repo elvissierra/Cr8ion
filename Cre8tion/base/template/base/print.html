@@ -17,7 +17,9 @@
     </div>
 </div>
 
-<div class="sidenav" id='sidenav'>
+
+
+<div class="sidenav" id='sidenav' style="position: absolute;">
     <div class="snheader" id="snheader">
         <h2> This weeks top downloads. </h2>
     </div>
@@ -35,15 +37,15 @@
     </tbody>
 </div>
 
-<div class="card-body" style="padding-left: 20%; padding-right: 10%;padding-top: 5%; font-size: 20px;">
-    <pheader><i> Welcome cre8or,</i></pheader>
+<div class="card-body" style="padding-left: 20%;padding-right: 10%;position: fixed;">
+    <h1 style="color: grey;"><i> Welcome cre8or,</i></h1>
     <p><i> this is Cre8ion. Here you will find, along with the basics to 3d printing, the ability to download and
             upload models. As a cre8or we enjoy 3d modeling, and shareing our ideas for others to see and use. When it
             comes to what you can expect to learn is the start of the process to end of the process, you can learn about
             the materials, equipment, modeling, and of course the final stage- printing.
         </i></p>
     <i>
-        <p style="text-align: right;"> Your imagination is the only limit!</p>
+        <p style="text-align: right; font-size: 20px; "> Your imagination is the only limit!</p>
     </i>
     <t-row style="text-align:center;">
 
@@ -51,16 +53,16 @@
             <span class="popuptext" id="popup"> WOAH! </span>
         </button>
 
-        <button class="btn equipment" onclick="popupfunc0()">Equipment
-            <span class="popuptext" id="popup0"> WOAH </span>
+        <button class="btn equipment" onclick="popupfunc()">Equipment
+            <span class="popuptext" id="popup"> WOAH </span>
         </button>
 
-        <button class="btn modeling" onclick="popupfunc1()">Modeling
-            <span class="popuptext" id="popup1"> WOA </span>
+        <button class="btn modeling" onclick="popupfunc()">Modeling
+            <span class="popuptext" id="popup"> WOA </span>
         </button>
 
-        <button class="btn printing" onclick="popupfunc2()">Printing
-            <span class="popuptext" id="popup2"> WO </span>
+        <button class="btn printing" onclick="popupfunc()">Printing
+            <span class="popuptext" id="popup"> WO </span>
         </button>
 
     </t-row>
