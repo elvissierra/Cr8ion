@@ -1,6 +1,7 @@
 {% extends 'main/main.html' %}
 {% block content %}
 {% load static %}
+
 <div class="header-bar">
     <h3 style='margin:0'> There are <i>{{prints.count}}</i> prints to choose from, or <a id="add-link"
             href="{% url 'print_upload' %}">add</a> yours to the library! </h3>
@@ -39,11 +40,19 @@
 
 <div class="card-body" style="padding-left: 20%;padding-right: 10%;position: fixed;">
     <h1 style="color: grey;"><i> Welcome cre8or,</i></h1>
-    <p><i> this is Cre8ion. Here you will find, along with the basics to 3d printing, the ability to download and
-            upload models. As a cre8or we enjoy 3d modeling, and shareing our ideas for others to see and use. When it
-            comes to what you can expect to learn is the start of the process to end of the process, you can learn about
-            the materials, equipment, modeling, and of course the final stage- printing.
-        </i></p>
+    <p> Here in Cre8ion you will find, along with the basics to 3d printing, the ability to download/
+        upload models, and share cre8ivity with other likeminded cre8ors. If also you find someones work
+        admirable there's a chance they may offer custom modeling for you to request! As a cre8or we enjoy 3d
+        modeling, and shareing our ideas for others to see and use.
+    </p>
+    <p>
+        When it comes to what you can expect to learn in this enviorment is provided in 4 steps. Which
+        includes the complete start of the process to end of the process. You can learn about the materials,
+        equipment, modeling, and of course the final stage- printing. We cover everything in the basics,
+        however there is always something new being invented to help cre8ors so do feel free to look
+        at other resources also. With that said, remember~
+    </p>
+
     <i>
         <p style="text-align: right; font-size: 20px; "> Your imagination is the only limit!</p>
     </i>

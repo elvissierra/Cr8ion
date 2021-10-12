@@ -1,7 +1,9 @@
+from django.contrib.auth import views
 from django.core.files.storage import FileSystemStorage
 from django.core.paginator import Paginator
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.views.generic.base import View
 from .forms import PrintForm
 from .models import Print
 from django.views.generic.list import ListView
@@ -62,7 +64,7 @@ class PrintView(ListView):
         return context
 
 
-# for print order by download.count
+# ORDER PRINTS BY DOWNLOAD COUNTS
 
 # PRINT LIST
 def print_list(request):
@@ -74,7 +76,7 @@ def print_list(request):
 
 
 # LIKES AND DISLIKES
-class AddLike(LoginRequiredMixin):
+class AddLike(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         post = Print.objects.get(pk=pk)
         is_dislike = False
@@ -97,7 +99,7 @@ class AddLike(LoginRequiredMixin):
         return HttpResponseRedirect(next)
 
 
-class AddDislike(LoginRequiredMixin):
+class AddDislike(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         post = Print.objects.get(pk=pk)
         is_like = False
