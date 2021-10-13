@@ -19,3 +19,9 @@ function popupfunc() {
     var btn = document.getElementById("popup");
     btn.classList.toggle("show");
 }
+
+function topten() {
+    if (print.prints >= 10) {
+        sidenav.classList.
+  }
+}
