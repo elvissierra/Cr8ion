@@ -20,8 +20,3 @@ function popupfunc() {
     btn.classList.toggle("show");
 }
 
-function topten() {
-    if (print.prints >= 10) {
-        sidenav.classList.
-  }
-}

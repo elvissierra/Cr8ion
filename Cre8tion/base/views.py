@@ -75,13 +75,6 @@ def print_list(request):
 
 
 # ORDER PRINTS BY DOWNLOAD COUNTS
-# def clicked():
-#    global count
-#    prints = Print.objects.all()
-#    count = 0
-#    for print in prints.url():
-#        if print.url == clicked:
-#            add count(print)
 
 
 # LIKES AND DISLIKES
