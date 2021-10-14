@@ -9,8 +9,8 @@ urlpatterns = [
     path("register/", RegisterPage.as_view(), name="register"),
     path("", views.print, name="print"),
     path("print_list/", views.print_list, name="print_list"),
-    path("post/<int:pk>/like", views.AddLike, name="like"),
-    path("post/<int:pk>/dislike", views.AddDislike, name="dislike"),
+    path("print/<int:pk>/like", views.AddLike, name="like"),
+    path("print/<int:pk>/dislike", views.AddDislike, name="dislike"),
     path("print_upload/", views.print_upload, name="print_upload"),
     # path("print_download/", views.print_download, name="print_download")
 ]

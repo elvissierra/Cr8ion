@@ -1,8 +1,10 @@
+from typing import Counter
 from django.contrib.auth import views
 from django.core.files.storage import FileSystemStorage
 from django.core.paginator import Paginator
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls.base import reverse
 from django.views.generic.base import View
 from .forms import PrintForm
 from .models import Print
@@ -12,7 +14,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .forms import PrintForm
 
 # USER REGISTRATION
@@ -47,7 +49,6 @@ class CustomLoginView(LoginView):
 # HOME PAGE
 class PrintView(ListView):
     model = Print
-    # downloads =
     context_object_name = "print"
 
     def get_context_data(self, **kwargs):
@@ -64,8 +65,6 @@ class PrintView(ListView):
         return context
 
 
-# ORDER PRINTS BY DOWNLOAD COUNTS
-
 # PRINT LIST
 def print_list(request):
     prints = Print.objects.all()
@@ -75,51 +74,21 @@ def print_list(request):
     return render(request, "main/print_list.html", {"prints": prints})
 
 
+# ORDER PRINTS BY DOWNLOAD COUNTS
+# def clicked():
+#    global count
+#    prints = Print.objects.all()
+#    count = 0
+#    for print in prints.url():
+#        if print.url == clicked:
+#            add count(print)
+
+
 # LIKES AND DISLIKES
-class AddLike(LoginRequiredMixin, View):
-    def post(self, request, pk, *args, **kwargs):
-        post = Print.objects.get(pk=pk)
-        is_dislike = False
-        for dislike in post.dislikes.all():
-            if dislike == request.user:
-                is_dislike = True
-                break
-        if is_dislike:
-            post.dislikes.remove(request.user)
-        is_like = False
-        for like in post.likes.all():
-            if like == request.user:
-                is_like = True
-                break
-        if not is_like:
-            post.likes.add(request.user)
-        if is_like:
-            post.likes.remove(request.user)
-        next = request.POST.get("next", "/")
-        return HttpResponseRedirect(next)
-
-
-class AddDislike(LoginRequiredMixin, View):
-    def post(self, request, pk, *args, **kwargs):
-        post = Print.objects.get(pk=pk)
-        is_like = False
-        for like in post.likes.all():
-            if like == request.user:
-                is_like = True
-                break
-        if is_like:
-            post.likes.remove(request.user)
-        is_dislike = False
-        for dislike in post.dislikes.all():
-            if dislike == request.user:
-                is_dislike = True
-                break
-        if not is_dislike:
-            post.dislikes.add(request.user)
-        if is_dislike:
-            post.dislikes.remove(request.user)
-        next = request.POST.get("next", "/")
-        return HttpResponseRedirect(next)
+def LikeView(request, pk):
+    print = get_object_or_404(Print, id=request.POST.get("print_id"))
+    print.likes.add(request.user)
+    return HttpResponseRedirect(reverse("article_detail", args=[str(pk)]))
 
 
 # UPLOAD FILES

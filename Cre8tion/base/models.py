@@ -9,8 +9,8 @@ class Print(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     stl = models.FileField(upload_to="store/stls/")
     cover = models.ImageField(upload_to="store/covers/", null=True, blank=True)
-    likes = models.ManyToManyField(User, blank=True, related_name="likes")
-    dislikes = models.ManyToManyField(User, blank=True, related_names="dislikes")
+    likes = models.ManyToManyField(User, related_name="likes")
+    dislikes = models.ManyToManyField(User, related_names="dislikes")
 
     def __str__(self):
         return self.title
