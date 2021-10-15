@@ -28,15 +28,29 @@
 
     <div class='container'>
         <div class='row'>
+
             {% for print in prints %}
-            <div class="col-3" style="text-align: center; color: rgb(70, 80, 233)">
-                <img src="{{print.cover.url}}" alt="no slice" ; height="200" ; width="200" title="{{print.title}}" />
+            <div class="col-3" style="text-align: center; color: rgb(70, 80, 233);">
+                <img src="{{print.cover.url}}" alt="no slice" ; height="200" ; width="200" ; />
                 <hr />
-                <h3> <a href="{{print.stl.url}}" download>{{print.title}}</a></h3>
+                <h3>
+                    <form action="{% url 'print_likes' print.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" , name="print_id" , value="{{ print.id }}" , <i style="font-size:24px"
+                            class="fa">&#xf087; </i></button><a href="{{print.stl.url}}" id="clicks"
+                            download>{{print.title}}</a>
+                    </form>
+                </h3>
+
+
+
+
             </div>
             {% endfor %}
         </div>
+
 </body>
+
 
 <div class="pagination">
     <span class="step-links">

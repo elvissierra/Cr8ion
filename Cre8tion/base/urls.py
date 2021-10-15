@@ -1,7 +1,6 @@
 from django.urls import path
-from django.views.generic.list import ListView
 from . import views
-from .views import CustomLoginView, RegisterPage, LikeView, DislikesView
+from .views import CustomLoginView, RegisterPage
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -10,8 +9,7 @@ urlpatterns = [
     path("register/", RegisterPage.as_view(), name="register"),
     path("", views.print, name="print"),
     path("print_list/", views.print_list, name="print_list"),
-    path("print/<int:pk>/like", ListView, name="likes"),
-    # path("print/<int:pk>/dislike", DislikesView, name="dislikes"),
+    path("print/<int:pk>/", views.print_likes, name="print_likes"),
+    # path("dislikes/<int:pk>/", DislikeView, name="dislike"),
     path("print_upload/", views.print_upload, name="print_upload"),
-    # path("print_download/", views.print_download, name="print_download")
 ]

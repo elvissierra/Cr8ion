@@ -75,13 +75,20 @@ def print_list(request):
 
 
 # ORDER PRINTS BY DOWNLOAD COUNTS
+# def clicked():
+#    global count
+#    prints = Print.objects.all()
+#    count = 0
+#    for print in prints.url():
+#        if print.url == clicked:
+#            add count(print)
 
 
 # LIKES AND DISLIKES
-def LikeView(request, pk):
+def print_likes(request, pk):
     print = get_object_or_404(Print, id=request.POST.get("print_id"))
     print.likes.add(request.user)
-    return HttpResponseRedirect(reverse("article_detail", args=[str(pk)]))
+    return HttpResponseRedirect(reverse("print_list", args=[str(pk)]))
 
 
 # UPLOAD FILES
