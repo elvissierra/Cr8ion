@@ -1,75 +1,110 @@
-{% extends 'main/main.html' %}
-{% block content %}
-{% load static %}
-{% load static %}
+from typing import Counter
+from django.contrib.auth import views
+from django.core.files.storage import FileSystemStorage
+from django.core.paginator import Paginator
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls.base import reverse
+from django.views.generic.base import View
+from .forms import PrintForm
+from .models import Print
+from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.urls import reverse_lazy, reverse
+from .forms import PrintForm
 
-<div class="topnav">
-    <a href="{%url 'print' %}">&#8592; Home </a>
-    <a href="{%url 'print_upload' %}"> Upload </a>
-    <div class="search-container">
-        <form method="GET" style="float: inline-end;">
-            <button type="submit"><i class="fa fa-search"></i></button>
-            <input type="text" placeholder="Search.." id='search' value="{{search_input}}">
-        </form>
-    </div>
-</div>
+# USER REGISTRATION
+class RegisterPage(FormView):
+template_name = "main/register.html"
+form_class = UserCreationForm
+redirect_authenticated_user = True
+success_url = reverse_lazy("print")
 
+def form_valid(self, form):
+user = form.save()
+if user is not None:
+login(self.request, user)
+return super(RegisterPage, self).form_valid(form)
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-    crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
-<body>
-
-    <h1 style="color: grey; text-align: center;">Model Library</h1>
-    <hr />
-
-    <div class='container'>
-        <div class='row'>
-
-            {% for print in prints %}
-            <div class="col-3" style="text-align: center; color: rgb(70, 80, 233);">
-                <img src="{{print.cover.url}}" alt="no slice" ; height="200" ; width="200" ; />
-                <hr />
-                <h3>
-                    <form action="{% url 'print_likes' print.pk %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" , name="print_id" , value="{{ print.id }}" , <i style="font-size:24px"
-                            class="fa">&#xf087; </i></button><a href="{{print.stl.url}}" id="clicks"
-                            download>{{print.title}}</a>
-                    </form>
-                </h3>
+def get(self, *args, **kwargs):
+if self.request.user.is_authenticated:
+return redirect("print")
+return super(RegisterPage, self).get(*args, **kwargs)
 
 
+# USER LOGIN
+class CustomLoginView(LoginView):
+template_name = "main/login.html"
+fields = "__all__"
+redirect_authenticated_user = True
+
+def get_success_url(self):
+return reverse_lazy("print")
 
 
-            </div>
-            {% endfor %}
-        </div>
+# HOME PAGE
+class PrintView(ListView):
+model = Print
+context_object_name = "print"
 
-</body>
+def get_context_data(self, **kwargs):
+context = super().get_context_data(**kwargs)
+context["print"] = context["print"].filter(user=self.request.user)
+context["count"] = context["print"].count()
+
+search_input = self.request.GET.get("search-area") or ""
+if search_input:
+context["print"] = context["print"].filter(title__contains=search_input)
+
+context["search_input"] = search_input
+
+return context
 
 
-<div class="pagination">
-    <span class="step-links">
-        {% if prints.has_previous %}
-        <a href="?page=1">&laquo; first</a>
-        <a href="?page={{ prints.previous_page_number }}">previous</a>
-        {% endif %}
+# PRINT LIST
+def print_list(request):
+prints = Print.objects.all()
+paginator = Paginator(prints, 12)
+page_number = request.GET.get("page")
+prints = paginator.get_page(page_number)
+return render(request, "main/print_list.html", {"prints": prints})
 
-        <span class="current">
-            Page {{ prints.number }} of {{ prints.paginator.num_pages }}.
-        </span>
 
-        {% if prints.has_next %}
-        <a href="?page={{ prints.next_page_number }}">next</a>
-        <a href="?page={{ prints.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
+# ORDER PRINTS BY DOWNLOAD COUNTS
+# def clicked():
+# global count
+# prints = Print.objects.all()
+# count = 0
+# for print in prints.url():
+# if print.url == clicked:
+# add count(print)
 
-</html>
 
-{% endblock content %}
+# LIKES AND DISLIKES
+def print_likes(request, pk):
+print = get_object_or_404(Print, id=request.POST.get("print_id"))
+print.likes.add(request.user)
+return HttpResponseRedirect(reverse("print_list", args=[str(pk)]))
+
+
+# UPLOAD FILES
+def print(request):
+prints = Print.objects.all()
+return render(request, "main/print.html", {"prints": prints})
+
+
+def print_upload(request):
+if request.method == "POST":
+form = PrintForm(request.POST, request.FILES)
+if form.is_valid():
+form.save()
+return redirect("print_list")
+else:
+form = PrintForm()
+else:
+form = PrintForm()
+return render(request, "main/print_upload.html", {"form": form})
