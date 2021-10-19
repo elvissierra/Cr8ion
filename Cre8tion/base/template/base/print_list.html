@@ -1,110 +1,100 @@
-from typing import Counter
-from django.contrib.auth import views
-from django.core.files.storage import FileSystemStorage
-from django.core.paginator import Paginator
-from django.http.response import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
-from django.urls.base import reverse
-from django.views.generic.base import View
-from .forms import PrintForm
-from .models import Print
-from django.views.generic.list import ListView
-from django.views.generic.edit import FormView
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
-from django.urls import reverse_lazy, reverse
-from .forms import PrintForm
+{% extends 'main/main.html' %}
+{% block content %}
+{% load static %}
 
-# USER REGISTRATION
-class RegisterPage(FormView):
-template_name = "main/register.html"
-form_class = UserCreationForm
-redirect_authenticated_user = True
-success_url = reverse_lazy("print")
+<div class="header-bar">
+    <h3 style='margin:0'> There are <i>{{prints.count}}</i> prints to choose from, or <a id="add-link"
+            href="{% url 'print_upload' %}">add</a> yours to the library! </h3>
+</div>
 
-def form_valid(self, form):
-user = form.save()
-if user is not None:
-login(self.request, user)
-return super(RegisterPage, self).form_valid(form)
-
-def get(self, *args, **kwargs):
-if self.request.user.is_authenticated:
-return redirect("print")
-return super(RegisterPage, self).get(*args, **kwargs)
+<div class='topnav'>
+    <a href="{% url 'print_list' %}"> Library </a>
+    <a href="{%url 'print_upload' %}"> Upload </a>
+    <div class="search-container">
+        <form method="GET" style="float: inline-end;">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            <input type="text" placeholder="Search.." id='search' value="{{search_input}}">
+        </form>
+    </div>
+</div>
 
 
-# USER LOGIN
-class CustomLoginView(LoginView):
-template_name = "main/login.html"
-fields = "__all__"
-redirect_authenticated_user = True
 
-def get_success_url(self):
-return reverse_lazy("print")
+<div class="sidenav" id='sidenav' style="position: absolute;">
+    <div class="snheader" id="snheader">
+        <h2> This weeks top downloads. </h2>
+    </div>
+    <tbody>
+        {% for print in prints %}
+        <tr>
+            <td>{{ print.title }}</td>
+            <td>
+                {% if print.cover %}
+                <img src=" {{ print.cover.url }}" alt=" no slice " height='150' ; width="150">
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</div>
+
+<div class="card-body" style="padding-left: 20%;padding-right: 10%;position: fixed;">
+    <h1 style="color: grey;"><i> Welcome cre8or,</i></h1>
+    <p> Here in Cre8ion you will find, along with the basics to 3d printing, the ability to download/ upload models, and
+        share cre8ivity with other likeminded cre8ors. If also you find someone’s work admirable there's a chance they
+        may offer custom modeling for you to request! As a cre8or we enjoy 3d modeling and sharing our ideas for others
+        to see and use.
+
+    </p>
+    <p>
+        When it comes to what you can expect to learn in this environment is provided in 4 steps. Which includes the
+        complete start of the process to end of the process. You can learn about the materials, equipment, modeling, and
+        of course the final stage- printing. We cover everything in the basics, however there is always something new
+        being invented to help cre8ors so do feel free to look at other resources also. With that said, remember~
+    </p>
+
+    <i>
+        <p style="text-align: right; font-size: 20px; "> Your imagination is the only limit!</p>
+    </i>
+    <t-row style="text-align:center;">
+
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn materials" onclick="popupfunc(event)"> Materials
+                <span class="popuptext"> WOAH! </span>
+            </div>
+        </button>
+
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn equipment" onclick="popupfunc(event)"> Equipment
+                <span class="popuptext"> WOAH </span>
+            </div>
+        </button>
+
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn modeling" onclick="popupfunc(event)"> Modeling
+                <span class="popuptext"> WOA </span>
+            </div>
+        </button>
+
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn printing" onclick="popupfunc(event)"> Printing
+                <span class="popuptext"> WO </span>
+            </div>
+        </button>
+
+    </t-row>
+</div>
+<script>
+    function popupfunc(event) {
+        const currentlyVisible = document.querySelector('.popup .show');
+        if (currentlyVisible) {
+            currentlyVisible.classList.toggle('show');
+        }
+        var popup = event.currentTarget.querySelector('.popuptext');
+        popup.classList.toggle("show");
+    }
+</script>
 
 
-# HOME PAGE
-class PrintView(ListView):
-model = Print
-context_object_name = "print"
 
-def get_context_data(self, **kwargs):
-context = super().get_context_data(**kwargs)
-context["print"] = context["print"].filter(user=self.request.user)
-context["count"] = context["print"].count()
-
-search_input = self.request.GET.get("search-area") or ""
-if search_input:
-context["print"] = context["print"].filter(title__contains=search_input)
-
-context["search_input"] = search_input
-
-return context
-
-
-# PRINT LIST
-def print_list(request):
-prints = Print.objects.all()
-paginator = Paginator(prints, 12)
-page_number = request.GET.get("page")
-prints = paginator.get_page(page_number)
-return render(request, "main/print_list.html", {"prints": prints})
-
-
-# ORDER PRINTS BY DOWNLOAD COUNTS
-# def clicked():
-# global count
-# prints = Print.objects.all()
-# count = 0
-# for print in prints.url():
-# if print.url == clicked:
-# add count(print)
-
-
-# LIKES AND DISLIKES
-def print_likes(request, pk):
-print = get_object_or_404(Print, id=request.POST.get("print_id"))
-print.likes.add(request.user)
-return HttpResponseRedirect(reverse("print_list", args=[str(pk)]))
-
-
-# UPLOAD FILES
-def print(request):
-prints = Print.objects.all()
-return render(request, "main/print.html", {"prints": prints})
-
-
-def print_upload(request):
-if request.method == "POST":
-form = PrintForm(request.POST, request.FILES)
-if form.is_valid():
-form.save()
-return redirect("print_list")
-else:
-form = PrintForm()
-else:
-form = PrintForm()
-return render(request, "main/print_upload.html", {"form": form})
+{% endblock content %}

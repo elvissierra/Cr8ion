@@ -14,9 +14,3 @@ function stkyfunc() {
     }
 }
 
-
-function popupfunc() {
-    var btn = document.getElementById("popup");
-    btn.classList.toggle("show");
-}
-
