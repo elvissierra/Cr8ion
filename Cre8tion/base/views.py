@@ -1,17 +1,13 @@
 from typing import Counter
-from django.contrib.auth import views
-from django.core.files.storage import FileSystemStorage
 from django.core.paginator import Paginator
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls.base import reverse
-from django.views.generic.base import View
 from .forms import PrintForm
 from .models import Print
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
 from django.contrib.auth.views import LoginView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy, reverse
@@ -75,13 +71,6 @@ def print_list(request):
 
 
 # ORDER PRINTS BY DOWNLOAD COUNTS
-# def clicked():
-#    global count
-#    prints = Print.objects.all()
-#    count = 0
-#    for print in prints.url():
-#        if print.url == clicked:
-#            add count(print)
 
 
 # LIKES AND DISLIKES
