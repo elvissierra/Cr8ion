@@ -1,17 +1,16 @@
 from typing import Counter
 from django.core.paginator import Paginator
-from django.http.response import HttpResponseRedirect
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from django.urls.base import reverse
-from .forms import PrintForm
 from .models import Print
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from .forms import PrintForm
+from django.contrib.auth.decorators import login_required
 
 # USER REGISTRATION
 class RegisterPage(FormView):
@@ -73,13 +72,6 @@ def print_list(request):
 # ORDER PRINTS BY DOWNLOAD COUNTS
 
 
-# LIKES AND DISLIKES
-def print_likes(request, pk):
-    print = get_object_or_404(Print, id=request.POST.get("print_id"))
-    print.likes.add(request.user)
-    return HttpResponseRedirect(reverse("print_list", args=[str(pk)]))
-
-
 # UPLOAD FILES
 def print(request):
     prints = Print.objects.all()
@@ -97,3 +89,24 @@ def print_upload(request):
     else:
         form = PrintForm()
     return render(request, "main/print_upload.html", {"form": form})
+
+
+# LIKES AND DISLIKES
+@login_required
+def print_likes(request):
+    if request.POST.get("action") == "print":
+        result = ""
+        id = int(request.POST.get("printid"))
+        print = get_object_or_404(Print, id=id)
+        if print.likes.filter(id=request.user.id).exists():
+            print.likes.remove(request.user)
+            print.like_count -= 1
+            result = print.like_count
+            print.save()
+        else:
+            print.likes.add(request.user)
+            print.like_count -= 1
+            result = print.like_count
+            print.save()
+
+        return JsonResponse({"result": result(pk)})
