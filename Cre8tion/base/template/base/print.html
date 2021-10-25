@@ -40,17 +40,17 @@
 
 <div class="card-body" style="padding-left: 20%;padding-right: 10%;position: fixed;">
     <h1 style="color: grey;"><i> Welcome cre8or,</i></h1>
-    <p> Here in Cre8ion you will find, along with the basics to 3d printing, the ability to download/
-        upload models, and share cre8ivity with other likeminded cre8ors. If also you find someones work
-        admirable there's a chance they may offer custom modeling for you to request! As a cre8or we enjoy 3d
-        modeling, and shareing our ideas for others to see and use.
+    <p> Here in Cre8ion you will find, along with the basics to 3d printing, the ability to download/ upload models, and
+        share cre8ivity with other likeminded cre8ors. If also you find someone’s work admirable there's a chance they
+        may offer custom modeling for you to request! As a cre8or we enjoy 3d modeling and sharing our ideas for others
+        to see and use.
+
     </p>
     <p>
-        When it comes to what you can expect to learn in this enviorment is provided in 4 steps. Which
-        includes the complete start of the process to end of the process. You can learn about the materials,
-        equipment, modeling, and of course the final stage- printing. We cover everything in the basics,
-        however there is always something new being invented to help cre8ors so do feel free to look
-        at other resources also. With that said, remember~
+        When it comes to what you can expect to learn in this environment is provided in 4 steps. Which includes the
+        complete start of the process to end of the process. You can learn about the materials, equipment, modeling, and
+        of course the final stage- printing. We cover everything in the basics, however there is always something new
+        being invented to help cre8ors so do feel free to look at other resources also. With that said, remember~
     </p>
 
     <i>
@@ -58,25 +58,50 @@
     </i>
     <t-row style="text-align:center;">
 
-        <button class="btn materials" onclick="popupfunc()">Materials
-            <span class="popuptext" id="popup"> WOAH! </span>
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn materials" onclick="popupfunc(event)"> Materials
+                <span class="popuptext"> Covering filaments such as pla, abs, tpu, petg, and much more.</span>
+            </div>
         </button>
 
-        <button class="btn equipment" onclick="popupfunc()">Equipment
-            <span class="popuptext" id="popup"> WOAH </span>
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn equipment" onclick="popupfunc(event)"> Equipment
+                <span class="popuptext"> Tips and things to better understand the machine you're useing or in the market
+                    for.</span>
+            </div>
         </button>
 
-        <button class="btn modeling" onclick="popupfunc()">Modeling
-            <span class="popuptext" id="popup"> WOA </span>
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn modeling" onclick="popupfunc(event)"> Modeling
+                <span class="popuptext"> This will cover the software you'll need in order to start making your own
+                    models.</span>
+            </div>
         </button>
 
-        <button class="btn printing" onclick="popupfunc()">Printing
-            <span class="popuptext" id="popup"> WO </span>
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn printing" onclick="popupfunc(event)"> Printing
+                <span class="popuptext"> You'll learn about "sliceing" and further understand what is needed to finally
+                    present youre cre8ion to the world! </span>
+            </div>
         </button>
 
     </t-row>
 </div>
 
+
+
+
+
+<script>
+    function popupfunc(event) {
+        const currentlyVisible = document.querySelector('.popup .show');
+        if (currentlyVisible) {
+            currentlyVisible.classList.toggle('show');
+        }
+        var popup = event.currentTarget.querySelector('.popuptext');
+        popup.classList.toggle("show");
+    }
+</script>
 
 
 

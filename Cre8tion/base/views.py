@@ -12,6 +12,27 @@ from django.urls import reverse_lazy
 from .forms import PrintForm
 from django.contrib.auth.decorators import login_required
 
+# LIKES AND DISLIKES
+@login_required
+def print_likes(request, pk):
+    if request.POST.get("action") == "print":
+        result = ""
+        pk = int(request.POST.get("printpk"))
+        print = get_object_or_404(Print, pk=pk)
+        if print.likes.filter(pk=request.user.pk).exists():
+            print.likes.remove(request.user)
+            print.like_count -= 1
+            result = print.like_count
+            print.save()
+        else:
+            print.likes.add(request.user)
+            print.like_count += 1
+            result = print.like_count
+            print.save()
+
+        return JsonResponse({"result": result})
+
+
 # USER REGISTRATION
 class RegisterPage(FormView):
     template_name = "main/register.html"
@@ -89,24 +110,3 @@ def print_upload(request):
     else:
         form = PrintForm()
     return render(request, "main/print_upload.html", {"form": form})
-
-
-# LIKES AND DISLIKES
-@login_required
-def print_likes(request):
-    if request.POST.get("action") == "print":
-        result = ""
-        id = int(request.POST.get("printid"))
-        print = get_object_or_404(Print, id=id)
-        if print.likes.filter(id=request.user.id).exists():
-            print.likes.remove(request.user)
-            print.like_count -= 1
-            result = print.like_count
-            print.save()
-        else:
-            print.likes.add(request.user)
-            print.like_count -= 1
-            result = print.like_count
-            print.save()
-
-        return JsonResponse({"result": result(pk)})
