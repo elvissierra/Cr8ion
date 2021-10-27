@@ -1,99 +1,83 @@
 {% extends 'main/main.html' %}
 {% block content %}
 {% load static %}
+{% load static %}
 
-<div class="header-bar">
-    <h3 style='margin:0'> There are <i>{{prints.count}}</i> prints to choose from, or <a id="add-link"
-            href="{% url 'print_upload' %}">add</a> yours to the library! </h3>
-</div>
-
-<div class='topnav'>
-    <a href="{% url 'print_list' %}"> Library </a>
+<div class="topnav">
+    <a href="{%url 'print' %}">&#8592; Home </a>
     <a href="{%url 'print_upload' %}"> Upload </a>
     <div class="search-container">
         <form method="GET" style="float: inline-end;">
             <button type="submit"><i class="fa fa-search"></i></button>
-            <input type="text" placeholder="Search.." id='search' value="{{search_input}}">
+            <input type="text" placeholder="Search..." id='search' value="{{search_input}}">
         </form>
     </div>
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
-<div class="sidenav" id='sidenav' style="position: absolute;">
-    <div class="snheader" id="snheader">
-        <h2> This weeks top downloads. </h2>
-    </div>
-    <tbody>
-        {% for print in prints %}
-        <tr>
-            <td>{{ print.title }}</td>
-            <td>
-                {% if print.cover %}
-                <img src=" {{ print.cover.url }}" alt=" no slice " height='150' ; width="150">
+<body>
+
+    <h1 style="color: grey; text-align: center;">Model Library</h1>
+    <hr />
+
+    <div class='container'>
+        <div class='row'>
+
+            {% for print in prints %}
+            <div class="col-3" style="text-align: center; color: rgb(70, 80, 233);">
+                <img src="{{print.cover.url}}" alt="no slice" ; height="200" ; width="200" ; />
+                <hr />
+                <h3>
+                    {% if request.user.is_authenticated %}
+                    <form action="{% url 'likes' print.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="fa fa-thumbs-up"
+                            style="border: transparent; background-color: transparent;" name="print-likes"
+                            value="{{ print.id }}" ;>
+                        </button>
+                        </i></button><a href="{{print.stl.url}}" download>{{print.title}}</a>
+                        <button type="submit"
+                            style="border: transparent; background-color: transparent;">&#128173</button>
+
+                    </form>
+
+                </h3>
                 {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
+
+
+
+            </div>
+            {% endfor %}
+        </div>
+
+</body>
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if prints.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ prints.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ prints.number }} of {{ prints.paginator.num_pages }}.
+        </span>
+
+        {% if prints.has_next %}
+        <a href="?page={{ prints.next_page_number }}">next</a>
+        <a href="?page={{ prints.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
 </div>
 
-<div class="card-body" style="padding-left: 20%;padding-right: 10%;position: fixed;">
-    <h1 style="color: grey;"><i> Welcome cre8or,</i></h1>
-    <p> Here in Cre8ion you will find, along with the basics to 3d printing, the ability to download/ upload models, and
-        share cre8ivity with other likeminded cre8ors. If also you find someone’s work admirable there's a chance they
-        may offer custom modeling for you to request! As a cre8or we enjoy 3d modeling and sharing our ideas for others
-        to see and use.
-
-    </p>
-    <p>
-        When it comes to what you can expect to learn in this environment is provided in 4 steps. Which includes the
-        complete start of the process to end of the process. You can learn about the materials, equipment, modeling, and
-        of course the final stage- printing. We cover everything in the basics, however there is always something new
-        being invented to help cre8ors so do feel free to look at other resources also. With that said, remember~
-    </p>
-
-    <i>
-        <p style="text-align: right; font-size: 20px; "> Your imagination is the only limit!</p>
-    </i>
-    <t-row style="text-align:center;">
-
-        <button class="popup" style="background-color: transparent; border: none;">
-            <div class="btn materials" onclick="popupfunc(event)"> Materials
-                <span class="popuptext"> WOAH! </span>
-            </div>
-        </button>
-
-        <button class="popup" style="background-color: transparent; border: none;">
-            <div class="btn equipment" onclick="popupfunc(event)"> Equipment
-                <span class="popuptext"> WOAH </span>
-            </div>
-        </button>
-
-        <button class="popup" style="background-color: transparent; border: none;">
-            <div class="btn modeling" onclick="popupfunc(event)"> Modeling
-                <span class="popuptext"> WOA </span>
-            </div>
-        </button>
-
-        <button class="popup" style="background-color: transparent; border: none;">
-            <div class="btn printing" onclick="popupfunc(event)"> Printing
-                <span class="popuptext"> WO </span>
-            </div>
-        </button>
-
-    </t-row>
-</div>
-<script>
-    function popupfunc(event) {
-        const currentlyVisible = document.querySelector('.popup .show');
-        if (currentlyVisible) {
-            currentlyVisible.classList.toggle('show');
-        }
-        var popup = event.currentTarget.querySelector('.popuptext');
-        popup.classList.toggle("show");
-    }
-</script>
+</html>
 
 
 
