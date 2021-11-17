@@ -41,7 +41,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "creation.urls"
+ROOT_URLCONF = "cre8ion.urls"
 
 TEMPLATES = [
     {
@@ -110,7 +110,7 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "creation/static"),
+    os.path.join(BASE_DIR, "cre8ion/static"),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
