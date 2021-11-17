@@ -35,7 +35,7 @@ def print_likes(request, postid):
 
 # USER REGISTRATION
 class RegisterPage(FormView):
-    template_name = "main/register.html"
+    template_name = "base/register.html"
     form_class = UserCreationForm
     redirect_authenticated_user = True
     success_url = reverse_lazy("print")
@@ -54,7 +54,7 @@ class RegisterPage(FormView):
 
 # USER LOGIN
 class CustomLoginView(LoginView):
-    template_name = "main/login.html"
+    template_name = "base/login.html"
     fields = "__all__"
     redirect_authenticated_user = True
 
@@ -87,7 +87,7 @@ def print_list(request):
     paginator = Paginator(prints, 12)
     page_number = request.GET.get("page")
     prints = paginator.get_page(page_number)
-    return render(request, "main/print_list.html", {"prints": prints})
+    return render(request, "base/print_list.html", {"prints": prints})
 
 
 # ORDER PRINTS BY DOWNLOAD COUNTS
@@ -96,7 +96,7 @@ def print_list(request):
 # UPLOAD FILES
 def print(request):
     prints = Print.objects.all()
-    return render(request, "main/print.html", {"prints": prints})
+    return render(request, "base/print.html", {"prints": prints})
 
 
 def print_upload(request):
@@ -109,4 +109,4 @@ def print_upload(request):
             form = PrintForm()
     else:
         form = PrintForm()
-    return render(request, "main/print_upload.html", {"form": form})
+    return render(request, "base/print_upload.html", {"form": form})
