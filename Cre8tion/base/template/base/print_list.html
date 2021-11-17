@@ -3,9 +3,9 @@
 {% load static %}
 {% load static %}
 
-<div class="topnav">
-    <a href="{%url 'print' %}">&#8592; Home </a>
-    <a href="{%url 'print_upload' %}"> Upload </a>
+<div class="topnav" style="background: transparent;">
+    <a href="{%url 'print' %}" style="color: rgb(70, 80, 233)">&#8592; Home </a>
+    <a href="{%url 'print_upload' %}" style="color: rgb(70, 80, 233)"> Upload </a>
     <div class="search-container">
         <form method="GET" style="float: inline-end;">
             <button type="submit"><i class="fa fa-search"></i></button>
@@ -33,6 +33,9 @@
             <div class="col-3" style="text-align: center; color: rgb(70, 80, 233);">
                 <img src="{{print.cover.url}}" alt="no slice" ; height="200" ; width="200" ; />
                 <hr />
+                <span class="fal fa-fire"></span> {{print.title}} <a href="{{print.stl.url}}" download>
+                    <span class="icon fa fa-cloud">
+                    </span></a>
                 <h3>
                     {% if request.user.is_authenticated %}
                     <form action="{% url 'likes' print.pk %}" method="POST">
@@ -41,7 +44,7 @@
                             style="border: transparent; background-color: transparent;" name="print-likes"
                             value="{{ print.id }}" ;>
                         </button>
-                        </i></button><a href="{{print.stl.url}}" download>{{print.title}}</a>
+
                         <button type="submit"
                             style="border: transparent; background-color: transparent;">&#128173</button>
 

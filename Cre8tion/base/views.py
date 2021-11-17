@@ -14,12 +14,12 @@ from django.contrib.auth.decorators import login_required
 
 # LIKES AND DISLIKES
 @login_required
-def print_likes(request, pk):
+def print_likes(request, postid):
     if request.POST.get("action") == "print":
         result = ""
-        pk = int(request.POST.get("printpk"))
-        print = get_object_or_404(Print, pk=pk)
-        if print.likes.filter(pk=request.user.pk).exists():
+        postid = int(request.POST.get("printpostid"))
+        print = get_object_or_404(Print, postid=postid)
+        if print.likes.filter(postid=request.user.postid).exists():
             print.likes.remove(request.user)
             print.like_count -= 1
             result = print.like_count
