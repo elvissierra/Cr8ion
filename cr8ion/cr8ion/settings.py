@@ -41,7 +41,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "cre8ion.urls"
+ROOT_URLCONF = "cr8ion.urls"
 
 TEMPLATES = [
     {
@@ -59,7 +59,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "cre8ion.wsgi.application"
+WSGI_APPLICATION = "cr8ion.wsgi.application"
 
 
 # Database
@@ -110,7 +110,7 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "cre8ion/static"),
+    os.path.join(BASE_DIR, "cr8ion/static"),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

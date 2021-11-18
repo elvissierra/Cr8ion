@@ -1,5 +1,5 @@
 """
-ASGI config for cre8ion project.
+ASGI config for cr8ion project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cre8ion.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cr8ion.settings")
 
 application = get_asgi_application()
