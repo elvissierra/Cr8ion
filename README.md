@@ -1,4 +1,4 @@
-Cre8ion is a web app that introduces users to the 3d modeling industry. It features things to know, allows users to upload and download their models to share, and Cre8ion also offers a service to allow individuals to request a custom model.
+Cr8ion is a web app that introduces users to the 3d modeling world. It features things to know for beginners, allows users to upload and download models to share, while also offering a service to allow individuals to request a custom models/ files from their favorite Cr8or.
 
 To run
 Install django, 
