@@ -1,0 +1,111 @@
+{% extends 'base/main.html' %}
+{% block content %}
+{% load static %}
+
+<div class="header-bar">
+    <h3 style='margin:0'> There are <i>{{prints.count}}</i> prints to choose from, or <a id="add-link"
+            href="{% url 'print_upload' %}">add</a> yours to the library! </h3>
+</div>
+
+<div class='topnav'>
+    <a href="{% url 'print_list' %}"> Library </a>
+    <a href="{%url 'print_upload' %}"> Upload </a>
+    <div class="search-container">
+        <form method="GET" style="float: inline-end;">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            <input type="text" placeholder="Search.." id='search' value="{{search_input}}">
+        </form>
+    </div>
+</div>
+
+
+
+<div class="sidenav" id='sidenav' style="position: absolute;">
+    <div class="snheader" id="snheader">
+        <h2> This weeks top downloads. </h2>
+    </div>
+    <tbody>
+        {% for print in prints %}
+        <tr>
+            <td>{{ print.title }}</td>
+            <td>
+                {% if print.cover %}
+                <img src=" {{ print.cover.url }}" alt=" no slice " height='150' ; width="150" ;>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</div>
+
+<div class="card-body" style="padding-left: 20%;padding-right: 10%;position: fixed;">
+    <h1 style="color: grey;"><i> Welcome cre8or,</i></h1>
+    <p> Here in Cre8ion you will find, along with the basics to 3d printing, the ability to download/ upload models, and
+        share cre8ivity with other likeminded cre8ors. If also you find someone’s work admirable there's a chance they
+        may offer custom modeling for you to request! As a cre8or we enjoy 3d modeling and sharing our ideas for others
+        to see and use.
+
+    </p>
+    <p>
+        When it comes to what you can expect to learn in this environment is provided in 4 steps. Which includes the
+        complete start of the process to end of the process. You can learn about the materials, equipment, modeling, and
+        of course the final printing stage. We cover everything in the basics, however there is always something new
+        being invented to help cre8ors so do feel free to look at other resources also. With that said, remember~
+    </p>
+
+    <i>
+        <p style="text-align: right; font-size: 20px; "> Your imagination is the only limit!</p>
+    </i>
+    <t-row style="text-align:center;">
+
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn materials" onclick="popupfunc(event)"> Materials
+                <span class="popuptext"> Covering filaments such as pla, abs, tpu, petg, and much more.</span>
+            </div>
+        </button>
+
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn equipment" onclick="popupfunc(event)"> Equipment
+                <span class="popuptext"> Tips and things to better understand the machine you're useing or in the market
+                    for.</span>
+            </div>
+        </button>
+
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn modeling" style="border-radius: 10px" onclick="popupfunc(event)"> Modeling
+                <span class="popuptext"> This will cover the software you'll need in order to start making your own
+                    models.</span>
+            </div>
+        </button>
+
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn printing" onclick="popupfunc(event)"> Printing
+                <span class="popuptext"> You'll learn about "sliceing" and further understand what is needed to finally
+                    present youre cre8ion to the world! </span>
+            </div>
+        </button>
+
+        <button class="popup" style="background-color: transparent; border: none;">
+            <div class="btn getstarted"> Get Started!
+        </button>
+    </t-row>
+    <hr>
+</div>
+
+
+
+
+<script>
+    function popupfunc(event) {
+        const currentlyVisible = document.querySelector('.popup .show');
+        if (currentlyVisible) {
+            currentlyVisible.classList.toggle('show');
+        }
+        var popup = event.currentTarget.querySelector('.popuptext');
+        popup.classList.toggle("show");
+    }
+</script>
+
+
+
+{% endblock content %}

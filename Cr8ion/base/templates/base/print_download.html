@@ -1,0 +1,21 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+
+<html>
+
+<head>
+    <title>Download Files</title>
+</head>
+
+<body>
+    {% for i in context %}
+    <h1>File: {{i.title}}</h1>
+    <h1>DOWNLOAD THE FILE FROM HERE <a href='{{i.upload.url}}' download>{{i.title}}</a></h1>
+    {% endfor %}
+</body>
+
+</html>
+
+{% endblock content %}
