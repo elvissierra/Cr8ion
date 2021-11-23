@@ -7,6 +7,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator
 from .forms import PrintForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import View
 
 # User Registration
 class RegisterPage(FormView):
@@ -66,6 +68,61 @@ def print_list(request):
     page_number = request.GET.get("page")
     prints = paginator.get_page(page_number)
     return render(request, "base/print_list.html", {"prints": prints})
+
+
+# Likes and Dislikes
+class AddLike(LoginRequiredMixin, View):
+    def print(self, request, pk, *args, **kwargs):
+        print = Print.objects.get(pk=pk)
+
+        is_dislike = False
+
+        for dislike in print.dislikes.all():
+            if dislike == request.user:
+                is_dislike = True
+                break
+        if is_dislike:
+            print.dislikes.remove(request.user)
+
+        is_like = False
+
+        for like in print.likes.all():
+            if like == request.user:
+                is_like = True
+                break
+
+        if not is_like:
+            print.likes.add(request.user)
+
+        if is_like:
+            print.likes.remove(request.user)
+
+
+class DisLike(LoginRequiredMixin, View):
+    def print(self, request, pk, *args, **kwargs):
+        print = Print.objects.get(pk=pk)
+
+        is_like = False
+
+        for like in print.likes.all():
+            if like == request.user:
+                is_like = True
+                break
+        if is_like:
+            print.likes.remove(request.user)
+
+        is_dislike = False
+
+        for dislike in print.dislikes.all():
+            if dislike == request.user:
+                is_dislike = True
+                break
+
+        if not is_dislike:
+            print.dislikes.add(request.user)
+
+        if is_dislike:
+            print.dislikes.remove(request.user)
 
 
 # Uploading Files
