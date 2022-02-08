@@ -1,4 +1,6 @@
-from django.shortcuts import redirect, render
+from django.http.response import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, FormView
 from .models import Print
 from django.contrib.auth.forms import UserCreationForm
@@ -71,58 +73,28 @@ def print_list(request):
 
 
 # Likes and Dislikes
-class AddLike(LoginRequiredMixin, View):
-    def print(self, request, pk, *args, **kwargs):
-        print = Print.objects.get(pk=pk)
-
-        is_dislike = False
-
-        for dislike in print.dislikes.all():
-            if dislike == request.user:
-                is_dislike = True
-                break
-        if is_dislike:
-            print.dislikes.remove(request.user)
-
-        is_like = False
-
-        for like in print.likes.all():
-            if like == request.user:
-                is_like = True
-                break
-
-        if not is_like:
+@login_required
+def likes(request):
+    if request.POST.get("action") == "post":
+        result = ""
+        id = int(request.POST.get("printid"))
+        print = get_object_or_404(Print, id=id)
+        if print.likes.filter(id=request.user.id).exists():
+            print.likes.remove(request.user)
+            print.likes_count -= 1
+            result = print.likes_count
+            print.save()
+        else:
             print.likes.add(request.user)
+            print.likes_count += 1
+            result = print.likes_count
+            print.save()
 
-        if is_like:
-            print.likes.remove(request.user)
-
-
-class DisLike(LoginRequiredMixin, View):
-    def print(self, request, pk, *args, **kwargs):
-        print = Print.objects.get(pk=pk)
-
-        is_like = False
-
-        for like in print.likes.all():
-            if like == request.user:
-                is_like = True
-                break
-        if is_like:
-            print.likes.remove(request.user)
-
-        is_dislike = False
-
-        for dislike in print.dislikes.all():
-            if dislike == request.user:
-                is_dislike = True
-                break
-
-        if not is_dislike:
-            print.dislikes.add(request.user)
-
-        if is_dislike:
-            print.dislikes.remove(request.user)
+        return JsonResponse(
+            {
+                "result": result,
+            }
+        )
 
 
 # Uploading Files

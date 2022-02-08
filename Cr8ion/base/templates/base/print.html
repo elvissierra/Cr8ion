@@ -21,12 +21,11 @@
 
 
 <div class="sidenav" id='sidenav' style="position: absolute;">
-    <div class="snheader" id="snheader">
+    <div class="snheader">
         <h2> This weeks top downloads. </h2>
     </div>
     <tbody>
-        {% for print in prints %}
-        <tr>
+        {% for print in prints %} <tr>
             <td>{{ print.title }}</td>
             <td>
                 {% if print.cover %}
@@ -72,8 +71,7 @@
         </button>
 
         <button class="popup" style="background-color: transparent; border: none;">
-            <div class="btn modeling" style="border-radius: 10px
-            " onclick="popupfunc(event)"> Modeling
+            <div class="btn modeling" style="border-radius: 10px" onclick="popupfunc(event)"> Modeling
                 <span class="popuptext"> This will cover the software you'll need in order to start making your own
                     models.</span>
             </div>
@@ -91,10 +89,11 @@
         </button>
     </t-row>
     <hr>
+    <p>materials a full paragraph on the materials used/ needed for the printing process.</p>
+    <p>equipment a full paragraph on the equipment used/ needed for the printing process.</p>
+    <p>modeling a full paragraph on the modeling used/ needed for the printing process.</p>
+    <p>printing a full paragraph on the printing used/ needed for the printing process.</p>
 </div>
-
-
-
 
 <script>
     function popupfunc(event) {

@@ -9,6 +9,7 @@ urlpatterns = [
     path("login/", CustomLoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
     path("print_list/", views.print_list, name="print_list"),
+    path("likes/", views.likes, name="likes"),
     path("print_upload/", views.print_upload, name="print_upload"),
     # path()
 ]
