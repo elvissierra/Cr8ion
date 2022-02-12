@@ -22,4 +22,17 @@ function stkyfunc() {
     }
 }
 
+likebutton.onclick = function () { clickfunc() };
+
+var likebutton = document.getElementById('likebutton');
+
+var fire = likebutton.clicked;
+
+function clickfunc() {
+    if (likebutton.clicked) {
+        likebutton.classList.toggle('fire');
+    } else {
+        likebutton.classList.toggle('fire')
+    }
+}
 

@@ -305,7 +305,21 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+
         }
+
+        .likebutton {
+            color: grey;
+            border: transparent;
+            background-color: transparent;
+        }
+
+        .likebutton .fire {
+            color: rgb(243, 49, 49);
+            border: transparent;
+            background-color: transparent;
+        }
+
 
         .popup {
             position: relative;
@@ -315,6 +329,13 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+
+        }
+
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
 
         }
 
@@ -347,11 +368,7 @@
             border-color: #555 transparent transparent transparent;
         }
 
-        .popup .show {
-            visibility: visible;
-            -webkit-animation: fadeIn 1s;
-            animation: fadeIn 1s;
-        }
+
 
         @-webkit-keyframes fadeIn {
             from {

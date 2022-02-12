@@ -39,8 +39,8 @@
 
                 <span class="" id="likes_count">{{print.likes_count}}</span>
 
-                <button onclick="clickFire(this)" class="fas fa-fire-alt" id="printid" value="{{print.id}}"
-                    style="border: transparent; background-color: transparent; color:rgb(78, 75, 75)"></button>
+                <button class="likebutton fas fa-fire-alt" onclick="clickfunc" value="{{print.id}}"
+                    id="likebutton"></button>
 
                 {{print.title}}
 
@@ -62,12 +62,7 @@
     </div>
 </body>
 
-<script>
 
-    function clickFire()
-    }
-
-</script>
 
 <div class="pagination">
     <span class="step-links">
@@ -86,6 +81,10 @@
         {% endif %}
     </span>
 </div>
+<script>
+
+</script>
+
 
 </html>
 
