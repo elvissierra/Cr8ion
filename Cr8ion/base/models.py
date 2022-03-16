@@ -18,6 +18,6 @@ class Print(models.Model):
 class Likes(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     likes = models.ManyToManyField(User, related_name="like")
-    print = models.ForeignKey(Print)
+    print = models.ForeignKey(Print, on_delete=models.SET_NULL, null=True)
 
     likes_count = models.BigIntegerField(default=0)
