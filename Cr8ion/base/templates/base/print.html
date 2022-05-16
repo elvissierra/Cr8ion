@@ -84,10 +84,14 @@
             </div>
         </button>
 
-        <button class="popup" style="background-color: transparent; border: none;">
-            <div class="btn getstarted"> Get Started!
+        <button class="popup" style="background-color: transparent; border: none;"onclick="popin()">
+            <div class="btn getstarted" > Get Started!
         </button>
+            <div id= 'demo'>this is it</div>
     </t-row>
+    <div>
+
+    </div>
     <hr>
     <p>materials a full paragraph on the materials used/ needed for the printing process.</p>
     <p>equipment a full paragraph on the equipment used/ needed for the printing process.</p>
@@ -104,7 +108,18 @@
         var popup = event.currentTarget.querySelector('.popuptext');
         popup.classList.toggle("show");
     }
+
+
+    function myFunction() {
+        var x = document.getElementById("demo");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+    }
 </script>
+
 
 
 

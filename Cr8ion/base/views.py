@@ -78,7 +78,7 @@ def likes(request):
     if request.POST.get("action") == "post":
         result = ""
         id = int(request.POST.get("printid"))
-        print = get_object_or_404(Print, id=id)
+        print = get_object_or_404(Print, pk=id)
         if print.likes.filter(id=request.user.id).exists():
             print.likes.remove(request.user)
             print.likes_count -= 1

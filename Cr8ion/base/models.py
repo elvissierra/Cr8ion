@@ -1,4 +1,3 @@
-from enum import auto
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -14,10 +13,13 @@ class Print(models.Model):
     def __str__(self):
         return self.title
 
+    def num_likes(self):
+        return self.liked.all().count()
+
 
 class Likes(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     likes = models.ManyToManyField(User, related_name="like")
     print = models.ForeignKey(Print, on_delete=models.SET_NULL, null=True)
-
     likes_count = models.BigIntegerField(default=0)
+    comments = models.CharField(max_length=50)
