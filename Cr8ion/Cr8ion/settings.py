@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+import secrets
 
 from django.forms.widgets import Media
 
@@ -79,12 +80,12 @@ WSGI_APPLICATION = "Cr8ion.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "cr8iondb",
-        "USER": "cr8ionadmin",
-        "PASSWORD": "wizard0",
-        "HOST": "localhost",
-        "PORT": "3306",
+        "ENGINE": f"{secrets.ENGINE}",
+        "NAME": f"{secrets.NAME}",
+        "USER": f"{secrets.USER}",
+        "PASSWORD": f"{secrets.PASSWORD}",
+        "HOST": f"{secrets.HOST}",
+        "PORT": f"{secrets.PORT}",
     }
 }
 
