@@ -12,9 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-import secrets
+from decouple import config
 
-from django.forms.widgets import Media
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-#j5()dh4&k!*+@u4+6$ghor99sj)x&4h2d_j9-&=)azq&5npj5"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -80,15 +79,14 @@ WSGI_APPLICATION = "Cr8ion.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": f"{secrets.ENGINE}",
-        "NAME": f"{secrets.NAME}",
-        "USER": f"{secrets.USER}",
-        "PASSWORD": f"{secrets.PASSWORD}",
-        "HOST": f"{secrets.HOST}",
-        "PORT": f"{secrets.PORT}",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
+        "PORT": config("DB_PORT"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
