@@ -84,9 +84,11 @@
             </div>
         </button>
 
-        <button class="popup" style="background-color: transparent; border: none;"onclick="popin()">
-            <div class="btn getstarted" > Get Started!
+        <button type = "button" class="collapsible" style="background-color: transparent; border: none;">Click me!
         </button>
+        <div class="content" >
+            <p> info here...</p>
+        </div>
             <div id= 'demo'>this is it</div>
     </t-row>
     <div>
@@ -100,6 +102,7 @@
 </div>
 
 <script>
+
     function popupfunc(event) {
         const currentlyVisible = document.querySelector('.popup .show');
         if (currentlyVisible) {
@@ -107,6 +110,21 @@
         }
         var popup = event.currentTarget.querySelector('.popuptext');
         popup.classList.toggle("show");
+    }
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i  = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
     }
 
 
