@@ -7,3 +7,5 @@ migrations
 settings
 dev_settings.py
 prod_settings.py
+store
+__pycache__
