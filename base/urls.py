@@ -11,5 +11,4 @@ urlpatterns = [
     path("print_list/", views.print_list, name="print_list"),
     path("likes/", views.likes, name="likes"),
     path("print_upload/", views.print_upload, name="print_upload"),
-    # path()
 ]
