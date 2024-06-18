@@ -16,6 +16,7 @@ class Print(models.Model):
     def num_likes(self):
         return self.liked.all().count()
 
+#to be refactored
 
 class Likes(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
