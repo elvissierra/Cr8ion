@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import uuid
+from django.contrib.contenttypes import fields
+from django.contrib.contenttypes import models
 
 class Print(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
@@ -16,11 +18,14 @@ class Print(models.Model):
     def num_likes(self):
         return self.liked.all().count()
 
-#to be refactored
 
 class Likes(models.Model):
-    creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    likes = models.ManyToManyField(User, related_name="like")
-    print = models.ForeignKey(Print, on_delete=models.SET_NULL, null=True)
-    likes_count = models.BigIntegerField(default=0)
-    comments = models.CharField(max_length=50)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+
+    # See https://docs.djangoproject.com/en/4.1/ref/contrib/contenttypes/#generic-relations
+    liked_object = fields.GenericForeignKey("object_type", "object_id")
+    object_type = models.ForeignKey(models.ContentType, on_delete=models.CASCADE)
+    object_id = models.UUIDField()
+
+    user_id = models.CharField(max_length=255, blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
