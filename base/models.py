@@ -22,7 +22,6 @@ class Print(models.Model):
 class Likes(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
 
-    # See https://docs.djangoproject.com/en/4.1/ref/contrib/contenttypes/#generic-relations
     liked_object = fields.GenericForeignKey("object_type", "object_id")
     object_type = models.ForeignKey(models.ContentType, on_delete=models.CASCADE)
     object_id = models.UUIDField()
