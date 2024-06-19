@@ -21,10 +21,21 @@ class Print(models.Model):
 
 class Likes(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
-
     liked_object = fields.GenericForeignKey("object_type", "object_id")
     object_type = models.ForeignKey(models.ContentType, on_delete=models.CASCADE)
     object_id = models.UUIDField()
 
     user_id = models.CharField(max_length=255, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
+
+    class Meta:
+        ordering = ["-created_at"]
+        indexes = [
+            models.Index(fields=["object_type", "object_id"], name="like_index_type_id"),
+        ]
+        constaints = [
+            models.UniqueConstraint(
+                fields=["object_type", "object_id", "user_id"],
+                name="like_unique_type_id_user",                
+            )
+        ]
