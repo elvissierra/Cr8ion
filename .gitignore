@@ -1,12 +1,10 @@
 tests.py
 secrets.py
-.env
 dbqueries.py
-cr8
+c8
 migrations
 settings
 dev_settings.py
 prod_settings.py
 store
 __pycache__
-.venv
