@@ -12,6 +12,8 @@ from .forms import PrintForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 
+#Views to be seperated, correctly organize
+
 # User Registration
 class RegisterPage(FormView):
     template_name = "base/register.html"
