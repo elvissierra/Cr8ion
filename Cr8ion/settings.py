@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "base.apps.BaseConfig",
+    "rest_framework",
+    "cr8",
 ]
 
 MIDDLEWARE = [
@@ -49,7 +50,7 @@ ROOT_URLCONF = "Cr8ion.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "base/templates")],
+        "DIRS": [os.path.join(BASE_DIR, "cr8/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
