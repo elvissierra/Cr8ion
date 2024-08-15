@@ -1,4 +1,3 @@
-from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, FormView
@@ -9,10 +8,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator
 from .forms import PrintForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View
 
-#Views to be seperated, correctly organize
+
 
 # User Registration
 class RegisterPage(FormView):
