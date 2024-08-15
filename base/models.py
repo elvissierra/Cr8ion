@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
-from django.contrib.contenttypes import fields
-from django.contrib.contenttypes import models
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 class Print(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
@@ -21,21 +21,18 @@ class Print(models.Model):
 
 class Likes(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    liked_object = fields.GenericForeignKey("object_type", "object_id")
-    object_type = models.ForeignKey(models.ContentType, on_delete=models.CASCADE)
-    object_id = models.UUIDField()
-
+    object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     user_id = models.CharField(max_length=255, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
 
     class Meta:
         ordering = ["-created_at"]
         indexes = [
-            models.Index(fields=["object_type", "object_id"], name="like_index_type_id"),
+            models.Index(fields=["object_type"], name="like_index"),
         ]
-        constaints = [
+        constraints = [
             models.UniqueConstraint(
-                fields=["object_type", "object_id", "user_id"],
-                name="like_unique_type_id_user",                
+                fields=["object_type", "user_id"],
+                name="like_unique_id_",                
             )
         ]
