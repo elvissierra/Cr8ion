@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator
 from .forms import PrintForm
-
+from rest_framework.permissions import AllowAny
 
 
 # User Registration
