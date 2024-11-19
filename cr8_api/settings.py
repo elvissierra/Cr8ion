@@ -3,10 +3,9 @@ from pathlib import Path
 import environ
 
 env = environ.Env()
-environ.Env.read_env()
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
 
 
 SECRET_KEY = env("SECRET_KEY")
@@ -25,7 +24,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "knox",
-    "cr8",
+    "cr8_api",
+    "cr8_api.apps.prints",
 ]
 
 MIDDLEWARE = [
@@ -38,12 +38,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "Cr8ion.urls"
+ROOT_URLCONF = "cr8_api.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "cr8/templates")],
+        "DIRS": [os.path.join(BASE_DIR, "cr8_api/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -56,7 +56,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "Cr8ion.wsgi.application"
+WSGI_APPLICATION = "cr8_api.wsgi.application"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES":(

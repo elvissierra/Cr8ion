@@ -1,5 +1,5 @@
 from django import forms
-from .models import Print
+from ...apps.prints.models import Print
 
 
 class PrintForm(forms.ModelForm):
