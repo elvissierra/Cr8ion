@@ -16,22 +16,3 @@ class Print(models.Model):
 
     def num_likes(self):
         return self.liked.all().count()
-
-
-class Likes(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    user_id = models.CharField(max_length=255, blank=False, null=False)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-
-    class Meta:
-        ordering = ["-created_at"]
-        indexes = [
-            models.Index(fields=["object_type"], name="like_index"),
-        ]
-        constraints = [
-            models.UniqueConstraint(
-                fields=["object_type", "user_id"],
-                name="like_unique_id_",                
-            )
-        ]

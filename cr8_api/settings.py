@@ -24,8 +24,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "knox",
-    "cr8_api",
     "cr8_api.apps.prints",
+    "cr8_api",
 ]
 
 MIDDLEWARE = [

@@ -13,7 +13,7 @@ from rest_framework.permissions import AllowAny
 
 # User Registration
 class RegisterPage(FormView):
-    template_name = "base/register.html"
+    template_name = "register.html"
     form_class = UserCreationForm
     redirect_authenticated_user = True
     success_url = reverse_lazy("print")
@@ -32,7 +32,7 @@ class RegisterPage(FormView):
 
 # Login
 class CustomLoginView(LoginView):
-    template_name = "base/login.html"
+    template_name = "login.html"
     fields = "__all__"
     redirect_authenticated_user = True
 
@@ -43,7 +43,7 @@ class CustomLoginView(LoginView):
 # Home Page/ Print rendering
 def print(request):
     prints = Print.objects.all()
-    return render(request, "base/print.html", {"prints": prints})
+    return render(request, "print.html", {"prints": prints})
 
 
 class PrintView(ListView):
@@ -68,7 +68,7 @@ def print_list(request):
     paginator = Paginator(prints, 12)
     page_number = request.GET.get("page")
     prints = paginator.get_page(page_number)
-    return render(request, "base/print_list.html", {"prints": prints})
+    return render(request, "print_list.html", {"prints": prints})
 
 
 # Likes and Dislikes
@@ -99,7 +99,7 @@ def likes(request):
 # Uploading Files
 def print(request):
     prints = Print.objects.all()
-    return render(request, "base/print.html", {"prints": prints})
+    return render(request, "print.html", {"prints": prints})
 
 
 def print_upload(request):
@@ -113,4 +113,4 @@ def print_upload(request):
     else:
         form = PrintForm()
 
-    return render(request, "base/print_upload.html", {"form": form})
+    return render(request, "print_upload.html", {"form": form})
