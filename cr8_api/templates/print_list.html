@@ -26,8 +26,8 @@
 
 <div class="container">
     <div class="row">
+        {% if prints %}
         {% for print in prints %}
-        {% if request.user.is_authenticated %}
         <div class="col-md-3 text-center print-card mb-4">
             <img src="{{ print.cover.url }}" alt="No slice available" class="img-thumbnail" style="height: 200px; width: 200px;" />
             <hr />
@@ -44,8 +44,10 @@
                 </svg>
             </a>
         </div>
-        {% endif %}
         {% endfor %}
+        {% else %}
+        <p> No prints currently available.</p>
+        {% endif %}
     </div>
 </div>
 
