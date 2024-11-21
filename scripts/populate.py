@@ -29,20 +29,24 @@ def populate_db():
         dummy_str = ''.join(random.choices(string.ascii_letters, k=7))
         cover_path = os.path.join(covers_root, c)
         stl_path = os.path.join(stls_root, s)
+        try:
+            with open(cover_path, "rb") as cover_obj, open(stl_path, "rb") as stl_obj:
+                cover = File(cover_obj)
+                stl = File(stl_obj)
 
-        with open(cover_path, "rb") as cover_obj, open(stl_path, "rb") as stl_obj:
-            cover = File(cover_obj)
-            stl = File(stl_obj)
-
-            # Create the Print object
-            Print.objects.create(
-                id=generated_uuid,
-                creator=default_user,
-                title=dummy_str,
-                description=dummy_str,
-                cover=cover,
-                stl=stl,
-            )
+                # Create the Print object
+                Print.objects.create(
+                    id=generated_uuid,
+                    creator=default_user,
+                    title=dummy_str,
+                    description=dummy_str,
+                    cover=cover,
+                    stl=stl,
+                )
+        except FileNotFoundError:
+            print("File not found")
+        except Exception as e:
+            print("Processing error")
 
 if __name__ == "__main__":
     populate_db()
