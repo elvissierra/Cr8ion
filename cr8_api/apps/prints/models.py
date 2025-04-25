@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
+
 def default_user():
     user, created = User.objects.get_or_create(
-        username = "default user",
-        defaults = {"email" : "default@gmail.com"}
+        username="default user", defaults={"email": "default@gmail.com"}
     )
     return user
+
 
 class Print(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)

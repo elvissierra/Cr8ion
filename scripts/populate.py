@@ -8,11 +8,12 @@ from django.core.files import File
 
 # Set up the Django environment
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cr8_api.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cr8_api.settings")
 django.setup()
 
 from cr8_api.apps.prints.models import Print
 from django.contrib.auth.models import User
+
 
 def populate_db():
     covers_root = "store/covers/"
@@ -22,11 +23,13 @@ def populate_db():
     s_files = os.listdir(stls_root)
 
     # Get or create a default user
-    default_user, _ = User.objects.get_or_create(username='default_user', defaults={'email': 'default@example.com'})
+    default_user, _ = User.objects.get_or_create(
+        username="default_user", defaults={"email": "default@example.com"}
+    )
 
     for c, s in zip(c_files, s_files):
         generated_uuid = uuid.uuid4()
-        dummy_str = ''.join(random.choices(string.ascii_letters, k=7))
+        dummy_str = "".join(random.choices(string.ascii_letters, k=7))
         cover_path = os.path.join(covers_root, c)
         stl_path = os.path.join(stls_root, s)
         try:
@@ -47,6 +50,7 @@ def populate_db():
             print("File not found")
         except Exception as e:
             print("Processing error")
+
 
 if __name__ == "__main__":
     populate_db()
